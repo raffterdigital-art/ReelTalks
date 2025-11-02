@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ✅ Dynamic SEO Meta -->
+    <title>{% block title %}ReelTalks – Top Trending News, OTT & Movie Updates{% endblock %}</title>
+    <meta name="description" content="Get the latest Tollywood, Bollywood & OTT trending news, box office reports, and entertainment updates only on ReelTalks.">
+    <meta name="keywords" content="Tollywood, OTT, Telugu cinema, Bollywood, Box office, Celebrity news, Movie updates, Film industry">
+    <meta name="author" content="ReelTalks">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- ✅ Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:title" content="ReelTalks – Top Trending Entertainment News">
+    <meta property="og:description" content="Stay updated with trending movie news, OTT releases, and box office reports.">
+    <meta property="og:image" content="https://reeltalks.live/static/images/Logo24.jpg">
+    <meta property="og:url" content="https://reeltalks.live/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ReelTalks">
+
+    <!-- ✅ Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ReelTalks – Latest Movie & OTT Updates">
+    <meta name="twitter:description" content="Follow ReelTalks for trending entertainment news, celebrity updates, and OTT releases.">
+    <meta name="twitter:image" content="https://reeltalks.live/static/images/Logo24.jpg">
+    <meta name="twitter:site" content="@reeltalks">
+
+    <!-- ✅ Google News + Schema.org -->
+    <meta name="news_keywords" content="Tollywood, Bollywood, OTT, Telugu cinema, Film updates">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "ReelTalks",
+      "url": "https://reeltalks.live",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://reeltalks.live/static/images/Logo24.jpg"
+      },
+      "sameAs": [
+        "https://www.facebook.com/reeltalks",
+        "https://twitter.com/reeltalks",
+        "https://www.instagram.com/reeltalks"
+      ]
+    }
+    </script>
+
+    <!-- ✅ Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+    <!-- ✅ Tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- ✅ Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');  // Replace with your actual GA ID
+    </script>
+
+    <!-- ✅ Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+
+    <!-- ✅ Custom Styles -->
+    <style>
+        .nav-active {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+        }
+        .scroll-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+<!-- 🔝 HEADER -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <!-- ✅ LOGO -->
+        <a href="{% url 'ReelBlog:home' %}" class="flex items-center space-x-2">
+            <img src="{% static 'images/Logo24.jpg' %}" alt="ReelTalks Logo" class="h-10 w-auto object-contain">
+            <span class="text-xl font-bold text-gray-800 hidden sm:block"></span>
+        </a>
+
+        <!-- 🔍 Search bar -->
+        <form action="{% url 'ReelBlog:home' %}" method="get" class="hidden md:block w-1/3">
+            <input type="text" name="q" placeholder="Search news or blogs..."
+                   class="w-full border rounded-lg px-3 py-1 focus:outline-none focus:ring focus:ring-blue-300">
+        </form>
+
+        <!-- ☰ Mobile toggle -->
+        <button class="md:hidden text-gray-700 focus:outline-none" id="menu-toggle">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- 🧭 MENU -->
+    <nav id="main-nav" class="bg-gray-100 md:flex items-center justify-center space-x-4 hidden md:block">
+        <div class="flex flex-wrap justify-center space-x-3 py-2">
+            <a href="{% url 'ReelBlog:home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">Home</a>
+            <a href="#categories" class="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">All Categories</a>
+
+            {% for cat in categories %}
+                <a href="{% url 'ReelBlog:category_posts' cat.name %}"
+                   class="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
+                   {{ cat.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </nav>
+</header>
+
+<!-- 📰 TRENDING SLIDER -->
+{% if trending_posts %}
+<section class="bg-blue-50 py-3 border-b border-blue-200">
+    <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto scroll-hide px-4">
+        <span class="font-semibold text-blue-700 whitespace-nowrap">🔥 Top Trending:</span>
+        {% for post in trending_posts %}
+            <a href="{% url 'ReelBlog:blog_detail' post.id %}" class="bg-white text-gray-800 px-3 py-1 rounded-full shadow hover:bg-blue-100 whitespace-nowrap">
+                {{ post.title|truncatechars:60 }}
+            </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- 🏠 FEATURED POST -->
+{% if featured %}
+<section class="max-w-7xl mx-auto px-4 py-6">
+    <div class="grid md:grid-cols-2 gap-6">
+        <img src="{{ featured.image.url }}" alt="{{ featured.title }}" class="rounded-2xl shadow-md object-cover w-full h-64">
+        <div>
+            <h2 class="text-2xl font-bold mb-3">{{ featured.title }}</h2>
+            <p class="text-gray-700 mb-4">{{ featured.content|truncatechars_html:250|safe }}</p>
+            <a href="{% url 'ReelBlog:blog_detail' featured.id %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                Read More →
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- 🆕 RECENT POSTS -->
+<section class="max-w-7xl mx-auto px-4 py-6">
+    <h3 class="text-xl font-bold mb-4">🆕 Recent Posts</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for post in recent_posts %}
+        <div class="bg-white rounded-2xl shadow hover:shadow-lg overflow-hidden transition">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="w-full h-48 object-cover" alt="{{ post.title }}">
+            {% endif %}
+            <div class="p-4">
+                <span class="text-sm text-blue-600 font-medium">{{ post.category.name }}</span>
+                <h4 class="font-semibold text-lg my-2">{{ post.title|truncatechars:60 }}</h4>
+                <p class="text-gray-600 text-sm mb-3">{{ post.content|truncatechars_html:120|safe }}</p>
+                <a href="{% url 'ReelBlog:blog_detail' post.id %}" class="text-blue-600 font-semibold hover:underline">Read More →</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- 📚 CATEGORIES -->
+<section id="categories" class="max-w-7xl mx-auto px-4 py-8">
+    <h3 class="text-xl font-bold mb-4">📚 Categories</h3>
+    <div class="flex flex-wrap gap-3">
+        {% for cat in categories %}
+            <a href="{% url 'ReelBlog:category_posts' cat.name %}"
+               class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg hover:bg-blue-200">
+                {{ cat.name }}
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ⚓ FOOTER -->
+<footer class="bg-gray-900 text-gray-300 text-center py-8 mt-10">
+    <div class="space-x-6 text-sm">
+        <a href="{% url 'ReelBlog:about' %}" class="hover:text-white">About</a>
+        <a href="{% url 'ReelBlog:privacy_policy' %}" class="hover:text-white">Privacy Policy</a>
+        <a href="{% url 'ReelBlog:contact' %}" class="hover:text-white">Contact</a>
+    </div>
+    <p class="mt-4 text-gray-400 text-xs">© 2025 ReelTalks.live — All rights reserved.</p>
+</footer>
+
+<script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("main-nav");
+    menuToggle.addEventListener("click", () => nav.classList.toggle("hidden"));
+</script>
+</body>
+</html>

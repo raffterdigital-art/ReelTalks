@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post - Reeltalks</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load TinyMCE for Rich Text Editing -->
+    <!-- This script provides font style, image insertion, and text formatting features. -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <style>
+        /* Import Inter font and general styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb; /* Light, soft background */
+        }
+        /* Styling for form inputs (applied to standard HTML elements) */
+        input[type="text"], input[type="url"], select, textarea {
+            @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150;
+        }
+        textarea {
+            resize: vertical;
+        }
+        /* Styling for Django form errors (Removed DTL form error references for simplicity with raw POST handling) */
+        .errorlist {
+            @apply text-red-600 text-sm list-none p-0 mt-1;
+        }
+        /* Styling for active state in the header navigation */
+        .nav-link-active {
+            @apply text-blue-700 font-bold border-b-2 border-blue-700;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-wider">
+                <span class="text-blue-700">REEL</span>TALKS
+            </h1>
+            <!-- Menu Bar Navigation -->
+            <nav id="main-nav" class="hidden md:flex items-center space-x-2">
+                <a href="{% url 'ReelBlog:index' %}" class="text-gray-600 hover:text-blue-700 px-3 py-2 text-base font-medium transition duration-150 rounded-lg" data-category="Home">Home</a>
+                <a href="{% url 'ReelBlog:index' %}#posts" class="text-gray-600 hover:text-blue-700 px-3 py-2 text-base font-medium transition duration-150 rounded-lg" data-category="All">All Topics</a>
+                
+                <!-- NEW LINK for Post Creation - Marked as Active -->
+                <a href="{% url 'ReelBlog:create_post' %}" class="text-white bg-blue-600 px-3 py-2 text-base font-medium transition duration-150 rounded-lg shadow-md ml-4 nav-link-active" data-category="Create">
+                    New Post
+                </a>
+                
+                <a href="#" class="text-gray-600 hover:text-blue-700 px-3 py-2 text-base font-medium transition duration-150 rounded-lg" data-category="About">About</a>
+            </nav>
+            <button class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                <!-- Simple Menu Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">
+                Submit a New Professional Post
+            </h2>
+
+            <!-- Main Form Container Card -->
+            <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-xl border border-gray-100">
+                
+                <!-- Error Display for views.py -->
+                {% if error %}
+                    <div class="p-4 mb-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                        <p class="font-bold">Error:</p>
+                        <p>{{ error }}</p>
+                    </div>
+                {% endif %}
+
+                <!-- Post Creation Form -->
+                <form method="POST" action="{% url 'blog:create_post' %}" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Title Field (Standard HTML Input) -->
+                    <div>
+                        <label for="id_title" class="block text-sm font-medium text-gray-700 mb-1">Article Title</label>
+                        <input type="text" name="title" id="id_title" placeholder="A compelling headline..." required>
+                    </div>
+                    
+                    <!-- Category Field (Standard HTML Select, populated from context) -->
+                    <div>
+                        <label for="id_category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                        <select name="category" id="id_category">
+                            <option value="General">General</option>
+                            {% for category in categories %}
+                                <option value="{{ category }}">{{ category }}</option>
+                            {% endfor %}
+                            <!-- Note: The view defaults to 'General' if category is empty. -->
+                        </select>
+                    </div>
+
+                    <!-- Summary/Excerpt Field (New addition, recommended for card view) -->
+                    <div>
+                        <label for="id_summary" class="block text-sm font-medium text-gray-700 mb-1">Summary / Excerpt (Optional)</label>
+                        <input type="text" name="summary" id="id_summary" placeholder="A brief, 1-2 sentence summary for the homepage card.">
+                        <p class="text-gray-500 text-xs mt-1">If left empty, the first 100 characters of the content will be used.</p>
+                    </div>
+                    
+                    <!-- Image URL Field (Standard HTML Input) -->
+                    <div>
+                        <label for="id_image_url" class="block text-sm font-medium text-gray-700 mb-1">Featured Image URL (Optional)</label>
+                        <input type="url" name="image_url" id="id_image_url" placeholder="e.g., https://placehold.co/400x250/..." >
+                        <p class="text-gray-500 text-xs mt-1">Provide a high-resolution URL for the post's main image.</p>
+                    </div>
+
+                    <!-- Content Field (The main article body - Now a Rich Text Editor) -->
+                    <div>
+                        <label for="post_content" class="block text-sm font-medium text-gray-700 mb-1">Article Content (Rich Text Editor)</label>
+                        <!-- TinyMCE will attach to this textarea -->
+                        <textarea name="content" id="post_content" rows="20" required></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-blue-500/50 transition duration-150">
+                        Publish Post
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+            <p>&copy; 2025 Reeltalks. Designed for professional resolution.</p>
+            <p class="text-sm text-gray-400 mt-2">Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize TinyMCE on the main content textarea
+        tinymce.init({
+            selector: '#post_content', // Target the textarea by its ID
+            // Fixed: Removed 'print' and 'paste' plugins to resolve loading errors.
+            plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image link | code | help',
+            height: 500, // Set the height of the editor
+            menubar: false,
+            // Fixed: Removed 'target' property which was causing the 'read-only' console error.
+            image_title: true,
+            automatic_uploads: false,
+            file_picker_types: 'image',
+        });
+    </script>
+
+</body>
+</html>

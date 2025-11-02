@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reeltalks: Professional Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .category-button {
+            transition: all 0.2s ease;
+        }
+        .category-button.active {
+            @apply bg-blue-700 text-white shadow-md shadow-blue-500/50 transform scale-[1.02];
+        }
+        .post-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+        .hero-card:hover {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        /* Fix footer at bottom */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-28">
+
+    <!-- 🔵 Header / Navbar -->
+    <header class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 shadow-lg sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-white tracking-wider">
+                <span class="text-yellow-300">REEL</span>TALKS
+            </h1>
+            <nav class="hidden md:block">
+                <a href="#" class="text-white hover:text-yellow-300 px-4 py-2 text-base font-medium transition duration-200 rounded-lg hover:bg-blue-600">Home</a>
+                <a href="#posts" class="text-white hover:text-yellow-300 px-4 py-2 text-base font-medium transition duration-200 rounded-lg hover:bg-blue-600">Articles</a>
+                <a href="#" class="text-white hover:text-yellow-300 px-4 py-2 text-base font-medium transition duration-200 rounded-lg hover:bg-blue-600">About</a>
+            </nav>
+            <button class="md:hidden p-2 rounded-lg text-white hover:bg-blue-600">
+                <!-- Menu Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- 📰 Content -->
+    <main class="flex-grow">
+        <!-- Your same hero + posts section -->
+        <!-- (Keep exactly as your version — JS, structure, and posts all same) -->
+        <!-- Paste your entire JS and post rendering here (unchanged) -->
+    </main>
+
+    <!-- 🦶 Fixed Footer -->
+    <footer class="bg-gradient-to-r from-blue-800 via-indigo-900 to-blue-950 text-white text-center py-5 shadow-inner">
+        <p class="font-medium">&copy; 2025 Reeltalks — Designed for Professional Blogging</p>
+        <p class="text-sm text-gray-300 mt-1">Privacy Policy | Terms of Service</p>
+    </footer>
+
+    <!-- ✅ Your JavaScript (unchanged) -->
+    <script>
+        /* Keep your full JS here exactly as you already have */
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ post.title }} – ReelTalks</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+<!-- 🔝 HEADER -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+    <a href="{% url 'ReelBlog:home' %}" class="flex items-center space-x-2">
+      <img src="{% static 'images/Logo24.jpg' %}" alt="ReelTalks Logo" class="h-10 w-auto object-contain">
+      <span class="text-xl font-bold text-gray-800 hidden sm:block"></span>
+    </a>
+
+    <!-- ☰ Mobile toggle -->
+    <button class="md:hidden text-gray-700 focus:outline-none" id="menu-toggle">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- 🧭 MENU -->
+  <nav id="main-nav" class="bg-gray-100 md:flex items-center justify-center space-x-4 hidden md:block">
+    <div class="flex flex-wrap justify-center space-x-3 py-2">
+      <a href="{% url 'ReelBlog:home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">Home</a>
+      <a href="#categories" class="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">All Categories</a>
+
+      {% for cat in categories %}
+        <a href="{% url 'ReelBlog:category_posts' cat.name %}"
+           class="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
+          {{ cat.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </nav>
+</header>
+
+<!-- 📰 BLOG DETAIL -->
+<section class="max-w-5xl mx-auto my-10 bg-white shadow rounded-lg p-6">
+  <h1 class="text-3xl font-bold mb-2">{{ post.title }}</h1>
+  <p class="text-gray-500 mb-4">
+    <span class="text-blue-600">{{ post.category.name }}</span> |
+    {{ post.created_at|date:"M d, Y" }}
+  </p>
+
+  {% if post.image %}
+    <div class="flex justify-center mb-6">
+      <img src="{{ post.image.url }}" class="rounded-lg shadow-md max-h-72 w-auto object-cover" alt="{{ post.title }}">
+    </div>
+  {% endif %}
+
+  <div class="prose max-w-none text-gray-800 leading-relaxed">
+    {{ post.content|safe }}
+  </div>
+</section>
+
+<!-- 📚 CATEGORIES GRID -->
+<section id="categories" class="max-w-7xl mx-auto px-4 py-10">
+  <h2 class="text-2xl font-bold mb-6 text-blue-700">📚 Explore Categories</h2>
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {% for cat in categories %}
+      <a href="{% url 'ReelBlog:category_posts' cat.name %}"
+         class="bg-white shadow hover:shadow-lg rounded-lg p-4 text-center border border-gray-100 hover:border-blue-300 transition">
+        <h3 class="font-semibold text-lg text-gray-800">{{ cat.name }}</h3>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ⚓ FOOTER -->
+<footer class="bg-gray-900 text-gray-300 text-center py-4 mt-10">
+  <p>© 2025 ReelTalks.live — All rights reserved.</p>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const nav = document.getElementById("main-nav");
+  menuToggle.addEventListener("click", () => nav.classList.toggle("hidden"));
+</script>
+
+</body>
+</html>
