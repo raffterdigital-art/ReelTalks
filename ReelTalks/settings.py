@@ -81,7 +81,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'IST'
+TIME_ZONE = 'Asia/Kolkata'
+
 
 
 # Static files (CSS, JS, Images)
