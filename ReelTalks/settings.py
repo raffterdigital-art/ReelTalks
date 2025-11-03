@@ -17,7 +17,7 @@ SECRET_KEY = 'a63e21a80cfdec79a4a43333b792ec5f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['reeltalkssite.onrender.com']
+ALLOWED_HOSTS = ['www.reeltalks.live']
 
 # Application definition
 INSTALLED_APPS = [
@@ -81,7 +81,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'IST'
+TIME_ZONE = 'Asia/Kolkata'
+
 
 
 # Static files (CSS, JS, Images)
