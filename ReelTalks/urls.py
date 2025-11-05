@@ -20,12 +20,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from .sitemaps import sitemaps
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ReelBlog.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')), 
+    path("sitemap.xml", sitemap, {'sitemaps': sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     
 ]
 
