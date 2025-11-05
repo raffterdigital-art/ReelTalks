@@ -17,11 +17,7 @@ SECRET_KEY = 'a63e21a80cfdec79a4a43333b792ec5f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    'www.reeltalks.live',
-    'reeltalks.live',
-    'reeltalkssite.onrender.com'
-]
+ALLOWED_HOSTS = ['reeltalkssite.onrender.com']
 
 # Application definition
 INSTALLED_APPS = [
