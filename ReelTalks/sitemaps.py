@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
-from .models import Post, Category  # import your models
+from .models import Post, Category  # import your model
 
 class PostSitemap(Sitemap):
     changefreq = "daily"
