@@ -19,7 +19,8 @@ DEBUG = False
 
 
 
-ALLOWED_HOSTS = ['www.reeltalks.live']
+ALLOWED_HOSTS = ["reeltalks.live", "www.reeltalks.live", "127.0.0.1", "localhost"]
+
 
 # Application definition
 INSTALLED_APPS = [
