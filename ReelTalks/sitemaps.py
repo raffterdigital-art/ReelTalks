@@ -1,6 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from django.urls import reverse
-from .models import Post, Category  # import your model
+from ReelBlog.models import Post, Category
 
 class PostSitemap(Sitemap):
     changefreq = "daily"
@@ -13,8 +12,9 @@ class PostSitemap(Sitemap):
         return obj.created_at
 
     def location(self, obj):
-        # if your post URL is something like /post/123/ or /post/title-slug/
-        return reverse('post_detail', args=[obj.id])  # change if your URL uses slug
+        # fallback to simple path if reverse fails
+        return f"/blog/{obj.id}/"
+
 
 class CategorySitemap(Sitemap):
     changefreq = "weekly"
@@ -24,3 +24,10 @@ class CategorySitemap(Sitemap):
         return Category.objects.all()
 
     def location(self, obj):
+        return f"/category/{obj.name}/"  # or obj.slug if your model uses slugs
+
+
+sitemaps = {
+    'posts': PostSitemap,
+    'categories': CategorySitemap,
+}

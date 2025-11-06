@@ -16,8 +16,10 @@ SECRET_KEY = 'a63e21a80cfdec79a4a43333b792ec5f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-ALLOWED_HOSTS = ['www.reeltalks.live']
+
+##ALLOWED_HOSTS = ['www.reeltalks.live']
 
 # Application definition
 INSTALLED_APPS = [
@@ -30,7 +32,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'django.contrib.sites', 
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
