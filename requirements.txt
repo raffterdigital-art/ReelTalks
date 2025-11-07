@@ -29,3 +29,5 @@ urllib3==2.5.0
 watchdog==6.0.0
 webcolors==24.11.1
 whitenoise==6.11.0
+cloudinary
+django-cloudinary-storage
