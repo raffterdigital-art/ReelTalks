@@ -130,12 +130,14 @@ CKEDITOR_5_CONFIGS = {
         },
     }
 }
-cloudinary.config( 
-    cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"),
-    api_key = os.getenv("CLOUDINARY_API_KEY"),
-    api_secret = os.getenv("CLOUDINARY_API_SECRET"),
-    secure = True
+cloudinary.config(
+    cloud_name="dhpfmobxq",       # Your Cloudinary Cloud Name
+    api_key="679143996711284",    # Your API Key
+    api_secret="yhICb9C3dLMdYcBUxI7yTDH_SF0",  # Your API Secret
+    secure=True
 )
+
+# Django storage settings
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # (Optional: keep your static configuration same)
