@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'ReelTalks.middleware.RemoveNoIndexHeaderMiddleware',
 ]
 
-ROOT_URLCONF = 'ReelTalks.urls'
+
 
 TEMPLATES = [
     {
@@ -71,7 +71,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ROOT_URLCONF = 'ReelTalks.urls'
 WSGI_APPLICATION = 'ReelTalks.wsgi.application'
 
 
