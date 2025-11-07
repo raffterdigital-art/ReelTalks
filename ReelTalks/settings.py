@@ -130,12 +130,20 @@ CKEDITOR_5_CONFIGS = {
         },
     }
 }
-cloudinary.config(
-    cloud_name="dhpfmobxq",       # Your Cloudinary Cloud Name
-    api_key="679143996711284",    # Your API Key
-    api_secret="yhICb9C3dLMdYcBUxI7yTDH_SF0",  # Your API Secret
-    secure=True
-)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dhpfmobxq',
+    'API_KEY': '679143996711284',
+    'API_SECRET': 'yhICb9C3dLMdYcBUxI7yTDH_SF0',
+    'SECURE': True,
+    'UPLOAD_OPTIONS': {
+        'use_filename': True,
+        'unique_filename': False,
+        'overwrite': True,   # optional: overwrite same name if re-uploaded
+    }
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # Django storage settings
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
