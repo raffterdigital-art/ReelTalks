@@ -54,7 +54,7 @@
   <!-- ✅ Using Cloudinary image -->
   <div class="flex justify-center mb-6">
     <img 
-      src="https://res.cloudinary.com/dhpfmobxq/image/upload/v1762595663/cd3168f6508975cb897a9ac8db6285cf35/g694qplcnhvsysdeoj2r.png" 
+      src="{{ post.image.url }}" 
       class="rounded-lg shadow-md w-full max-h-96 object-cover"
       alt="{{ post.title }}">
   </div>
@@ -87,6 +87,18 @@
   const nav = document.getElementById("main-nav");
   menuToggle.addEventListener("click", () => nav.classList.toggle("hidden"));
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.reeltalks.live/" },
+    { "@type": "ListItem", "position": 2, "name": "{{ post.category.name }}", "item": "https://www.reeltalks.live/category/{{ post.category.name|slugify }}/" },
+    { "@type": "ListItem", "position": 3, "name": "{{ post.title }}" }
+  ]
+}
+</script>
+
 
 </body>
 </html>
