@@ -142,6 +142,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '679143996711284',
     'API_SECRET': 'yhICb9C3dLMdYcBUxI7yTDH_SF0',
     'UPLOAD_OPTIONS': {
+        'folder': 'cd3168f6508975cb897a9ac8db6285cf35',  # 👈 your folder ID from Cloudinary
         'use_filename': True,
         'unique_filename': False,
         'overwrite': True,
@@ -149,7 +150,7 @@ CLOUDINARY_STORAGE = {
 }
 
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 
 # Django storage settings
