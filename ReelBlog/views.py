@@ -18,19 +18,10 @@ def home(request):
     })
 
 
-def blog_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+def blog_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     categories = Category.objects.all()
-
-    # Get other posts in the same category (excluding current post)
-    related_posts = Post.objects.filter(category=post.category).exclude(id=post.id)[:6]
-
-    context = {
-        'post': post,
-        'categories': categories,
-        'related_posts': related_posts,
-    }
-    return render(request, 'ReelBlog/blog_detail.html', context)
+    return render(request, 'ReelBlog/blog_detail.html', {'post': post, 'categories': categories})
 
 def category_posts(request, category_name):
     category = get_object_or_404(Category, name=category_name)
