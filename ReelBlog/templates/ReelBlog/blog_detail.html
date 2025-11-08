@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ post.title }} – ReelTalks</title>
@@ -53,11 +51,13 @@
     {{ post.created_at|date:"M d, Y" }}
   </p>
 
-  {% if post.image %}
-    <div class="flex justify-center mb-6">
-      <img src="{{ post.image.url }}" class="rounded-lg shadow-md max-h-72 w-auto object-cover" alt="{{ post.title }}">
-    </div>
-  {% endif %}
+  <!-- ✅ Using Cloudinary image -->
+  <div class="flex justify-center mb-6">
+    <img 
+      src="https://res.cloudinary.com/dhpfmobxq/image/upload/v1762595663/cd3168f6508975cb897a9ac8db6285cf35/g694qplcnhvsysdeoj2r.png" 
+      class="rounded-lg shadow-md w-full max-h-96 object-cover"
+      alt="{{ post.title }}">
+  </div>
 
   <div class="prose max-w-none text-gray-800 leading-relaxed">
     {{ post.content|safe }}
