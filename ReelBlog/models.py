@@ -1,5 +1,6 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -19,6 +20,7 @@ class Post(models.Model):
     content = CKEditor5Field('Text', config_name='default')
     created_at = models.DateTimeField(auto_now_add=True)
     trending = models.BooleanField(default=False)
+    images = CloudinaryField('image', folder='cd3168f6508975cb897a9ac8db6285cf35', blank=True, null=True)
 
     class Meta:
         ordering = ['-created_at']
